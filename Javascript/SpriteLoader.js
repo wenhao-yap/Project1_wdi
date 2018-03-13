@@ -28,7 +28,6 @@ function spriteLoader(path,frameWidth,frameHeight,fps,endFrame){
 		currRow = Math.floor(currFrame / framesPerRow);
 		currCol = Math.floor(currFrame % framesPerRow);
 
-		//documentation followed at mozilla drawImage guide
 		//source(actual image) parameters
 		var sx = currCol*frameWidth;
 		var sy = currRow*frameHeight;

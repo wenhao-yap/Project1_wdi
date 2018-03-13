@@ -43,7 +43,7 @@ document.addEventListener("keyup",function(event){
 });
 function startJump(){
 	if(avatar.onGround == true){
-		avatar.y_spd = -8,
+		avatar.y_spd = -8;
 		avatar.onGround = false;
 	}
 };
