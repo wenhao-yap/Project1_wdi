@@ -50,6 +50,7 @@ To call this function:
 
 	example = new spriteLoader("example.png",31,42,3,8);
 	in the animation loop, call example.update() and example.draw(10,10)
+	working for 5px,10px margin sprites. need to tweak if margin is too big
 */
 
 

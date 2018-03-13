@@ -1,0 +1,9 @@
+section{
+	text-align : center;
+}
+
+canvas{
+	border : 1px solid black;
+	width:400px;
+	height:270px;
+}

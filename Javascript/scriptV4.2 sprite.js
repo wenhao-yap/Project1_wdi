@@ -105,7 +105,7 @@ function render() {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // //Platform
+        //Platform
         for(var i=0;i<=canvas.width;i+=16){
             ctx.drawImage(ground,i,canvas.height-platform-25);
         }
@@ -122,9 +122,8 @@ function render() {
             run.draw(avatar.x_pos,avatar.y_pos);
         }
 
-        //obstacles
-        kitty.update();
-        kitty.draw(obstacles[0].x_pos,obstacles[0].y_pos);
+        //Obstacles
+        
 
         //scoreBoard
         ctx.font = "14px Arial";
@@ -140,6 +139,8 @@ function gameStart(){
     //load sprites
     run = new spriteLoader("Images/running.png",31,43,6,8);
     jump = new spriteLoader("Images/jump.png",31,43,7,2);
+    skeleton_walk = new spriteLoader("Images/skeleton_walk.png",32,43,5,13);
+    skeleton_attack = new spriteLoader("Images/skeleton_attack.png",53,47,6,13);
     //game loop to draw the images on canvas
     render();
 }
