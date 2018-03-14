@@ -18,6 +18,8 @@ var delta;
 /** Load image resources */
 var ground = new Image();
 ground.src = "Images/platform2.png";
+var floatEnemy = new Image();
+floatEnemy.src = "Images/Mace.png";
 run = new spriteLoader("Images/running.png",33,43,6,8);
 leftRun = new spriteLoader("Images/leftRunning.png",33,43,6,8);
 jump = new spriteLoader("Images/jump.png",32,47,7,2);
@@ -30,7 +32,7 @@ skeleton_attack = new spriteLoader("Images/skeleton_attack.png",53,47,6,13);
 var canvas = document.querySelector("canvas");
 var ctx = canvas.getContext("2d");
 var platform = 31;
-var stop = false;
+var stop = false; 
 var score = 0;
 var leftKey = 37, rightKey = 39;
 var storeKey = [];
@@ -47,6 +49,7 @@ var avatar = {
     onGround: true,
     runToLeft: false
 };
+var health=100;
 var obstacles = [];
 obstacles.push({
     x_pos:canvas.width-11,
@@ -54,7 +57,14 @@ obstacles.push({
     width:10,
     height:35,
     x_spd:1.5
-})
+});
+obstacles.push({
+    x_pos:70,
+    y_pos:canvas.height-190,
+    width:50,
+    height:50,
+    x_spd:1.5
+});
 
 /* Keyboard Controls */
 document.addEventListener("keydown",function(event){
@@ -71,7 +81,7 @@ document.addEventListener("keyup",function(event){
 });
 function startJump(){
     if(avatar.onGround == true){
-        avatar.y_spd = -9;
+        avatar.y_spd = -8;
         avatar.onGround = false;
     }
 };
@@ -127,11 +137,17 @@ function update(){
         //reset the position of the obstacle at the right
         obstacles[0].x_pos = canvas.width-40;
         obstacles[0].x_spd *= -1;
-        console.log("Skeleton speed: " + Math.abs(obstacles[0].x_spd));
+        //console.log("Skeleton speed: " + Math.abs(obstacles[0].x_spd));
     }
-
-    //update the score
-    score++
+    obstacles[1].x_pos += obstacles[1].x_spd;
+    if(obstacles[1].x_pos < 0){
+        obstacles[1].x_pos = 0;
+        obstacles[1].x_spd *= -1
+    }
+    if(obstacles[1].x_pos >= canvas.width-40){
+        obstacles[1].x_pos = canvas.width-40;
+        obstacles[1].x_spd *= -1
+    } 
 
     switch(Math.floor(score/10)){
         case 60:
@@ -162,20 +178,30 @@ function update(){
             obstacles[0].x_spd = -10.0
             break;
     }
+    //update the score
+    score++
 };
 
 //detect collision and game over
 function gameOver(){
+    for(var i = 0; i<obstacles.length;i++){
         //case1: avatar right touches obstacle left
-    if(((avatar.x_pos + avatar.width) >= obstacles[0].x_pos)
-        && //case 2: avatar left touches obstacle right
-        (avatar.x_pos <= (obstacles[0].x_pos + obstacles[0].width))
-        && //case 3: avatar bottom touch obstacle top
-        ((avatar.y_pos + avatar.height) >= obstacles[0].y_pos)){
-        //reload page
-        location.reload();
-        //stop animation...
-        //stop = true;
+        if(((avatar.x_pos + avatar.width) >= obstacles[i].x_pos)
+            && //case 2: avatar left touches obstacle right
+            (avatar.x_pos <= (obstacles[i].x_pos + obstacles[i].width))
+            && //case 3: avatar bottom touch obstacle top
+            ((avatar.y_pos + avatar.height) >= obstacles[i].y_pos)
+            && //case 4: avatar top touch obstacle bottom
+            (avatar.y_pos <= (obstacles[i].y_pos + obstacles[i].height))){
+            
+            health-=1
+            if(health==0){
+                //reload page
+                //location.reload();
+                //stop animation...
+                stop = true;
+            }
+        }
     }
 };
 
@@ -221,6 +247,7 @@ function render() {
             }
         } 
         
+        //obstacles
         //attack after seeing avatar
         if((avatar.x_pos + avatar.width)+80 >= obstacles[0].x_pos){
             skeleton_attack.update();
@@ -233,10 +260,19 @@ function render() {
             skeleton_walk.draw(obstacles[0].x_pos,obstacles[0].y_pos); 
         }
 
+        ctx.drawImage(floatEnemy,0,0,513,512,obstacles[1].x_pos,obstacles[1].y_pos,50,50);
+
         //scoreBoard
         ctx.font = "14px Arial";
         ctx.fillStyle = "white";
         ctx.fillText("Score: " + Math.floor(score/10),100,50);
+
+        //health bar
+        ctx.fillStyle="#FFE4E1";
+        ctx.fillRect(avatar.x_pos+5,avatar.y_pos-5,20,5);
+        ctx.fillStyle="#FF0000";
+        ctx.fillRect(avatar.x_pos+5,avatar.y_pos-5,(health/100)*20,5);       
+        ////Whenever you lose health --> health-=1;
     }    
 }
 
@@ -255,3 +291,9 @@ function gameStart(){
 
 /* Execution */
 gameStart();
+
+/*credits
+https://arianatheechidna.deviantart.com/art/My-Health-and-Magic-Bars-490743746
+io sprites jungle assets
+io sprites free platform
+*/
