@@ -2,17 +2,60 @@
 <html>
 	<head>
     	<title>MyFirstGame</title>
-    	<!-- <link rel="stylesheet" href="css/styleV3.css"> -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     	<link rel="stylesheet" href="css/styleV3.css">
 	</head>
 
 	<body>
-		<h3> How long can you survive? </h3>
-		</div>
 		<div id="display">
-			<canvas width="480" height="270" id="display"></canvas> 
+		<canvas width="480" height="270" id="display"></canvas> 
+			<div id="menu">
+				<h3> Dangerous Jungle </h3>
+				<button id="play" class="raise buttonStyle"> Play </button>
+				<button type="button" id="instructions" class="raise buttonStyle btn btn-primary" data-toggle="modal" data-target="#myModal"> Instructions </button>
+				<button type="button" id="credits" class="raise buttonStyle btn btn-primary" data-toggle="modal" data-target="#myModal2"> Credits </button>
+			</div>
 		</div>
+
+		<!-- bootstrap modal -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Instructions</h5>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						Survive the enemies onslaught by using arrow keys and spacebar to dodge.
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>				
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal2">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Credits</h5>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						Free sprites provided by:<br>
+							Awesome Jungle Pack @Jsf23Art
+							Red Runner Open Source @BayatGames
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>				
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<script src="Javascript/SpriteLoader.js"></script>
 		<script src="Javascript/scriptV4.5 sprite.js"></script>
 	</body>

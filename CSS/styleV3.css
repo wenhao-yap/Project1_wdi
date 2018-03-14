@@ -1,17 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Dosis|Raleway');
+@import url('https://fonts.googleapis.com/css?family=Dosis|Nanum+Brush+Script');
 
 h3{
-	margin: 50px auto -38px auto;
-	border-radius: 4px;
-	background-color: #2ecc71;
-	border: none;
+	/*margin: 70px auto -180px 350px;*/
+	margin: -360px auto -180px 150px;
 	color: white;
-	font-size: 20px;
-	font-family: 'Raleway';
-	padding: 10px;
-	width: 748px;
+	font-size: 90px;
+	font-family: 'Nanum Brush Script';
+	width: 500px;
 	text-align: center;
-	box-shadow: 0px 5px 0px 0px #15B358;
+	position:absolute;
 }
 
 #display{
@@ -30,7 +27,46 @@ h3{
 	to { background-position: -500%,-180%,0%,-500%,0px}
 }
 
-.progress{
-	width:748px;
-	margin: 0px auto 0 auto;
+canvas{
+	display:inline-block;
+	visibility:none;
 }
+
+/* button style*/
+button {  
+	color: #ffa260;
+	transition: 0.25s;}
+button:hover,focus{  
+	border-color: adjust-hue(#ffa260, 45deg);
+	color: #fff;
+}
+.buttonStyle{
+	background:#1E1E35;
+	opacity: 0.8;
+  	border: 2px solid;
+  	font: inherit;
+  	line-height: 1;
+  	font: 300 1em 'Fira Sans', sans-serif;
+  	color: #e4cb58;
+  	display:inline-block;
+  	position:absolute;
+}
+
+#play{
+	margin: -240px auto 0px 315px;
+  	padding: 8px 41.6px;
+}
+#instructions{
+	margin: -195px auto 0px 315px;
+  	padding: 8px 15.8px;
+}
+#credits{
+	margin: -150px auto 0px 315px;
+  	padding: 8px 32px;
+}
+.raise:hover,
+.raise:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em adjust-hue(#ffa260, 45deg);
+  transform: translateY(-0.25em);
+}
+

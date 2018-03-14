@@ -32,7 +32,7 @@ skeleton_attack = new spriteLoader("Images/skeleton_attack.png",53,47,6,13);
 var canvas = document.querySelector("canvas");
 var ctx = canvas.getContext("2d");
 var platform = 31;
-var stop = false; 
+var stop = true; 
 var score = 0;
 var leftKey = 37, rightKey = 39;
 var storeKey = [];
@@ -52,7 +52,7 @@ var avatar = {
 var health=100;
 var obstacles = [];
 obstacles.push({
-    x_pos:canvas.width-11,
+    x_pos:canvas.width-40,
     y_pos:canvas.height-platform-60,
     width:10,
     height:35,
@@ -314,21 +314,34 @@ function render() {
         ctx.drawImage(floatEnemy,0,0,513,512,obstacles[1].x_pos,obstacles[1].y_pos,50,50);
 
         //scoreBoard
-        ctx.font = "14px Arial";
+        ctx.font = "20px Dosis";
         ctx.fillStyle = "white";
-        ctx.fillText("Score: " + Math.floor(score/10),100,50);
+        ctx.fillText("Score: " + Math.floor(score/10),70,50);
 
         //health bar
         ctx.fillStyle="#FFE4E1";
         ctx.fillRect(avatar.x_pos+5,avatar.y_pos-5,20,5);
         ctx.fillStyle="#FF0000";
         ctx.fillRect(avatar.x_pos+5,avatar.y_pos-5,(health/100)*20,5);       
-        ////Whenever you lose health --> health-=1;
+        if(health<=0.2){
+            ctx.font = "50px Nanum Brush Script";
+            ctx.fillStyle = "white";
+            ctx.fillText("GAME OVER",170,canvas.height/2);
+            ctx.font = "20px Dosis";
+            ctx.fillText("Back to menu in 5s ...",190,canvas.height/2+20)
+
+            setTimeout(function(){ 
+                location.reload()
+            }, 5000);
+        }
     }    
 }
 
 /* Game Execution */
-//some functionality to identify start of the game
+
+//Menu display
+var menu = document.getElementById("menu");
+var play = document.getElementById("play");
 
 function gameStart(){
     if(stop==false){ 
@@ -339,11 +352,10 @@ function gameStart(){
     }      
 };
 
-/* Execution */
-gameStart();
-
-/*credits
-https://arianatheechidna.deviantart.com/art/My-Health-and-Magic-Bars-490743746
-io sprites jungle assets
-io sprites free platform
-*/
+/* Game Menu */
+play.addEventListener("click",function(){
+    menu.style.visibility = "hidden";
+    canvas.style.visibility = "visible";
+    stop = false;
+    gameStart();
+});
