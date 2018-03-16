@@ -1,6 +1,9 @@
+//remove to see console.log
+//IIFE enclose to prevent variables from being in namespace
+(function () {
 /** Load image resources */
 var ground = new Image();
-ground.src = "Images/platform2.png";
+ground.src = "Images/test/Dirt.png";
 
 //player 1 files
 idle = new spriteLoader("Images/test/ichigoIdle.png",50,70,8,4);
@@ -44,7 +47,8 @@ var avatar = {
     idleToLeft: false,
     jumping: false, //is the avatar jumping?
     running: false,
-    attacking: false
+    attacking: false,
+    health: 100
 };
 //player 2
 var p2_leftKey = 37, p2_rightKey = 39, p2_jumpKey = 38;
@@ -57,7 +61,7 @@ var p2_avatar = {
     y_spd : 0, //vertical velocity
     limiter : 10, //speed limiter
     friction: 0.8, //friction to stop moving on ground
-    gravity : 0.5, //gravity in air
+    gravity : 0.5, //gravity in air --> higher value jump lower
     idleToLeft: true,
     jumping: false,
     runToLeft: false,
@@ -66,15 +70,47 @@ var p2_avatar = {
 var obstacles = [];
 obstacles.push({
     x_pos:0,
-    y_pos:canvas.height-30,
+    y_pos:canvas.height-40,
     width:100,
-    height:50,
+    height:40
 })
 obstacles.push({
-    x_pos:canvas.width-100,
-    y_pos:canvas.height-30,
-    width:100,
-    height:50,
+    x_pos:canvas.width-80,
+    y_pos:canvas.height-80,
+    width:40,
+    height:100
+})
+obstacles.push({
+    x_pos:canvas.width-50,
+    y_pos:canvas.height-50,
+    width:50,
+    height:50
+})
+obstacles.push({
+    x_pos:100,
+    y_pos:canvas.height-150,
+    width:150,
+    height:20,
+    x_spd:0.4
+});
+obstacles.push({
+    x_pos:0,
+    y_pos:100,
+    width:150,
+    height:20
+})
+obstacles.push({
+    x_pos:canvas.width-150,
+    y_pos:60,
+    width:150,
+    height:30
+})
+obstacles.push({
+    x_pos:0,
+    y_pos:50,
+    width:40,
+    height:10,
+    x_spd:1.0
 })
 
 /* Keyboard Controls */
@@ -86,6 +122,36 @@ document.addEventListener("keyup",function(event){
 });
 
 /* GamePlay */
+
+//generate obstacles
+//will push into array 10 times
+for(var i=100; i<500; i+=50){
+    obstacles.push({
+        x_pos:i,
+        y_pos:canvas.height-50,
+        width:50,
+        height:50
+    });
+}
+//get a random index not including 0 and 1.
+while(true){
+    var gapNum = (Math.floor(Math.random()*10));
+    if(gapNum>6){
+        console.log(gapNum);
+        obstacles.splice(gapNum,2);
+        break;
+    }
+}
+//loop through obstacles array avoiding 0 and 1
+while(true){
+    var randomNum = Math.floor(Math.random()*(obstacles.length));
+    if(randomNum>6){
+        obstacles[randomNum].height += 50;
+        obstacles[randomNum].y_pos -= 50;
+        break;
+    }
+}
+
 //Update player parameters
 function update(character,jumpStore,leftStore,rightStore){
     if(storeKey[jumpStore]){
@@ -147,12 +213,28 @@ function update(character,jumpStore,leftStore,rightStore){
         character.y_pos = canvas.height - character.height;
         character.y_spd = 0;
         character.jumping = false;
+        character.health = 0;
     }
 
     //obstacles
-    //generate obstacles
-    
-
+    obstacles[3].x_pos += obstacles[3].x_spd;
+    if(obstacles[3].x_pos < 0){
+        obstacles[3].x_pos = 0;
+        obstacles[3].x_spd *= -1;
+    }
+    if(obstacles[3].x_pos >= canvas.width-obstacles[3].width){
+        obstacles[3].x_pos = canvas.width-obstacles[3].width;
+        obstacles[3].x_spd *= -1;
+    }
+    obstacles[6].x_pos += obstacles[6].x_spd;
+    if(obstacles[6].x_pos < 0){
+        obstacles[6].x_pos = 0;
+        obstacles[6].x_spd *= -1;
+    }
+    if(obstacles[6].x_pos >= canvas.width-200){
+        obstacles[6].x_pos = canvas.width-200;
+        obstacles[6].x_spd *= -1;
+    }
     //collision with obstacles
     for(var i=0; i<obstacles.length;i++){
         //if avatar collide with obstacles
@@ -166,7 +248,6 @@ function update(character,jumpStore,leftStore,rightStore){
             character.x_spd = 0;
         }
         if(dir == "top"){
-            character.x_pos = obstacles.x_pos;
             character.y_spd = 0 ;
         }
     }
@@ -190,13 +271,14 @@ function update(character,jumpStore,leftStore,rightStore){
         }
     }
     if(collP2 == "top"){
-        avatar.x_pos = obstacles.x_pos;
+        avatar.x_pos = p2_avatar.x_pos;
         avatar.y_spd = 0;
         if(avatar.attacking == true){
             p2_avatar.health -= 1;
             console.log(p2_avatar.health);
         }
-    }   
+    }
+
 };
 
 //obstacle can refer to another player as well
@@ -379,8 +461,9 @@ function render() {
 
     //obstacles
     for(var i=0; i<obstacles.length;i++){
-        ctx.fillStyle = "black";
-        ctx.fillRect(obstacles[i].x_pos,obstacles[i].y_pos,obstacles[i].width,obstacles[i].height);
+        //ctx.fillStyle = "black";
+        //ctx.fillRect(obstacles[i].x_pos,obstacles[i].y_pos,obstacles[i].width,obstacles[i].height);
+        ctx.drawImage(ground,obstacles[i].x_pos,obstacles[i].y_pos,obstacles[i].width,obstacles[i].height);
     } 
 }
 
@@ -400,4 +483,7 @@ function gameStart(){
 };
 
 /* Execution */
-gameStart();
+window.onload = function(){
+    gameStart();
+};
+})();

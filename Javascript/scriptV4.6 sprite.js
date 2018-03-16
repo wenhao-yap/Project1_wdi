@@ -1,4 +1,3 @@
-(function () {
 var fps = 60;
 var now;
 var then = Date.now();
@@ -19,7 +18,7 @@ skeleton_attack = new spriteLoader("Images/skeleton_attack.png",53,47,6,13);
 
 /*GLOBAL VARIABLES*/
 //avatar and skeleton estimated to be rectangles for height and width calculations
-var canvas = document.querySelector("canvas");
+var canvas = document.querySelectorAll("canvas")[0];
 var ctx = canvas.getContext("2d");
 var platform = 31;
 var stop = true; 
@@ -306,7 +305,7 @@ function render() {
         //scoreBoard
         ctx.font = "20px Dosis";
         ctx.fillStyle = "white";
-        ctx.fillText("Score: " + Math.floor(score/10),70,50);
+        ctx.fillText("Score: " + Math.floor(score/10),70,70);
 
         //health bar
         ctx.fillStyle="#FFE4E1";
@@ -328,11 +327,6 @@ function render() {
 }
 
 /* Game Execution */
-
-//Menu display
-var menu = document.getElementById("menu");
-var play = document.getElementById("play");
-
 function gameStart(){
     if(stop==false){ 
         update();
@@ -342,6 +336,11 @@ function gameStart(){
     }      
 };
 
+//Menu display
+var menu = document.getElementById("menu");
+var buttons = document.querySelectorAll("button");
+var play = document.getElementById("play");
+
 /* Game Menu */
 play.addEventListener("click",function(){
     menu.style.visibility = "hidden";
@@ -349,4 +348,3 @@ play.addEventListener("click",function(){
     stop = false;
     gameStart();
 });
-})();
