@@ -23,7 +23,7 @@ h3{
 	margin:0px auto;
 	background-image:url(../Images/plx-5.png),url(../Images/plx-4.png),url(../Images/plx-3.png),url(../Images/plx-2.png),url(../Images/plx-1.png);
 	background-position:150%,400%,0%,100%,0px;
-	background-size:80%,80%,80%,80%,85%;
+	background-size:80%,80%,80%,80%,82%;
 	background-repeat:repeat-x,repeat-x,repeat-x,repeat-x,repeat-x;
 	animation: animate-background linear 50s infinite;
 	display:block; /* hide with none*/

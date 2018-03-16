@@ -21,8 +21,8 @@ skeleton_attack = new spriteLoader("Images/skeleton_attack.png",53,47,6,13);
 var canvas = document.querySelectorAll("canvas")[0];
 var ctx = canvas.getContext("2d");
 var platform = 31;
-var stop = true; 
-var score = 0;
+var stop = true; //to check when animation start
+var score = 0; 
 var leftKey = 37, rightKey = 39;
 var storeKey = [];
 var avatar = {
@@ -83,6 +83,7 @@ function endJump(){
 
 /* GamePlay */
 
+//update necessary variables
 function update(){
     //Update Avatar parameters
     if(storeKey[leftKey]){
@@ -245,9 +246,8 @@ function collision(avatar,obstacle){
     return collision;
 }
 
-//game loop to draw the images on canvas
+//after updating the values draw the images on canvas
 function render() {
-    //update necessary variables
 
     now = Date.now();
     delta = now - then;

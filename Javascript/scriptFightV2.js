@@ -90,7 +90,7 @@ obstacles_2.push({
     height:20,   
 })
 obstacles_2.push({
-    x_pos:canvas_2.width/2,
+    x_pos:canvas_2.width/2-20,
     y_pos:100+platform_2,
     width: 150,
     height:20
@@ -107,7 +107,6 @@ document.addEventListener("keyup",function(event){
 /* GamePlay */
 
 //generate obstacles_2
-//will push into array 10 times
 for(var i=80; i<canvas_2.width-100; i+=50){
     obstacles_2.push({
         x_pos:i,
@@ -117,6 +116,7 @@ for(var i=80; i<canvas_2.width-100; i+=50){
     });
 }
 //get a random index not including 0 and 1.
+//splice and create gaps
 while(true){
     var gapNum = (Math.floor(Math.random()*10));
     if(gapNum>4){
@@ -224,6 +224,7 @@ function update_2(character,jumpStore,leftStore,rightStore){
         }
     }
 
+    //player 2 deal damage on player 1 upon contact
     var collP2 = collision(p1_avatar,p2_avatar);
     if(collP2 == "bottom"){
         p1_avatar.y_spd = 0;
@@ -306,17 +307,19 @@ function render_2() {
     //< Player 1 > 
     //if avatar not on the ground, trigger jump animation
     if(p1_avatar.jumping == true){
+        //avatar facing left
         if(p1_avatar.idleToLeft == true){
+            //avatar is attacking. jump attack
             if(p1_avatar.attacking == true){
                 p1_avatar.attacking =false;
                 p1_jumpLeftAttack.draw(p1_avatar.x_pos-15,p1_avatar.y_pos);
             }
-            else{ 
+            else{ //avatar not attacking. Normal jump
                 p1_leftJump.update();
                 p1_leftJump.draw(p1_avatar.x_pos-15,p1_avatar.y_pos);
             }
         }
-        else{
+        else{ //avatar facing right
             if(p1_avatar.attacking == true){
                 p1_avatar.attacking = false;
                 p1_jumpAttack.draw(p1_avatar.x_pos-15,p1_avatar.y_pos);
@@ -329,6 +332,7 @@ function render_2() {
     }
     //if avatar on the ground
     else if(p1_avatar.jumping == false){
+        //avatar facing left
         if(p1_avatar.idleToLeft == true){
             if(p1_avatar.attacking == true){
                 p1_avatar.attacking = false;
@@ -383,7 +387,7 @@ function render_2() {
     if(p1_avatar.health<=0.2){
             ctx_2.font = "30px Dosis";
             ctx_2.fillStyle = "white";
-            ctx_2.fillText("GAME OVER",135,55);
+            ctx_2.fillText("Player 2 has won!",135,55);
             ctx_2.font = "20px Dosis";
             ctx_2.fillText("Back to menu in 5s ...",175,55+20)
             p1_avatar.health=0;
@@ -445,7 +449,7 @@ function render_2() {
     if(p2_avatar.health<= 0.2){
             ctx_2.font = "30px Dosis";
             ctx_2.fillStyle = "white";
-            ctx_2.fillText("GAME OVER",135,55);
+            ctx_2.fillText("Player 1 has won!",135,55);
             ctx_2.font = "20px Dosis";
             ctx_2.fillText("Back to menu in 5s ...",175,55+20)
             p2_avatar.health=0;
