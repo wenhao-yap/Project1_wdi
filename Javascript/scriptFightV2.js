@@ -368,7 +368,7 @@ function render_2() {
             }   
         } 
     }
-    if(p1_avatar.idleToLeft == true){
+    if(p1_avatar.idleToLeft == true ){
         ctx_2.fillStyle="#FFE4E1";
         ctx_2.fillRect(p1_avatar.x_pos,p1_avatar.y_pos-5,20,5);
         ctx_2.fillStyle="#FF0000";
@@ -376,9 +376,9 @@ function render_2() {
     }
    if(p1_avatar.idleToLeft == false){
         ctx_2.fillStyle="#FFE4E1";
-        ctx_2.fillRect(p1_avatar.x_pos,p1_avatar.y_pos-5,20,5);
+        ctx_2.fillRect(p1_avatar.x_pos+4,p1_avatar.y_pos-5,20,5);
         ctx_2.fillStyle="#FF0000";
-        ctx_2.fillRect(p1_avatar.x_pos,p1_avatar.y_pos-5,(p1_avatar.health/100)*20,5);
+        ctx_2.fillRect(p1_avatar.x_pos+4,p1_avatar.y_pos-5,(p1_avatar.health/100)*20,5);
     }
     if(p1_avatar.health<=0.2){
             ctx_2.font = "30px Dosis";
@@ -387,9 +387,9 @@ function render_2() {
             ctx_2.font = "20px Dosis";
             ctx_2.fillText("Back to menu in 5s ...",175,55+20)
             p1_avatar.health=0;
-            // setTimeout(function(){ 
-            //     location.reload()
-            // }, 5000);
+            setTimeout(function(){ 
+                location.reload()
+            }, 5000);
     } 
 
     //< Player 2 >

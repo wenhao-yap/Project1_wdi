@@ -23,7 +23,7 @@ h3{
 	margin:0px auto;
 	background-image:url(../Images/plx-5.png),url(../Images/plx-4.png),url(../Images/plx-3.png),url(../Images/plx-2.png),url(../Images/plx-1.png);
 	background-position:150%,400%,0%,100%,0px;
-	background-size:80%,80%,80%,80%,90%;
+	background-size:80%,80%,80%,80%,85%;
 	background-repeat:repeat-x,repeat-x,repeat-x,repeat-x,repeat-x;
 	animation: animate-background linear 50s infinite;
 	display:block; /* hide with none*/
@@ -89,13 +89,29 @@ button:hover,focus{
 	font-weight:100; 
 	background: #1E1E35;
 	color: white;
-	padding: 2rem;
+	padding: 10px 30px 1px 30px;
 	font-size: 1.2rem;
-	margin:0 auto;
+	margin:-10px auto 0 auto;
 	width:748px;
 	text-align: left;
 	font-family:Dosis;
 	border:1px solid;
 }
 
+.modal-body{
+	text-align: left;
+}
 
+span{
+	font-size:20px;
+	color: yellow;
+}
+
+p{
+	font-size:15px;
+}
+
+h4{
+	color: #f75a56;
+	text-decoration: underline;
+}
