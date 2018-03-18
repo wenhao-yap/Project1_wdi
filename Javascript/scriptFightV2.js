@@ -2,6 +2,14 @@
 var dirt = new Image();
 dirt.src = "Images/platform4.png";
 
+
+// function startGame2(){
+
+
+
+
+
+
 //player 1 files
 p1_idle = new spriteLoader("Images/test/ichigoIdle.png",50,70,8,4);
 p1_leftIdle = new spriteLoader("Images/test/ichigoIdleLeft.png",50.1,70,8,4);
@@ -38,7 +46,6 @@ var p1_avatar = {
     y_pos: canvas_2.height-120 + platform_2,
     x_spd: 0, //horizontal velocity
     y_spd : 0, //vertical velocity
-    limiter : 7, //speed limiter
     friction: 0.8, //friction to stop moving on ground
     gravity : 0.5, //gravity in air
     idleToLeft: false,
@@ -56,12 +63,11 @@ var p2_avatar = {
     y_pos: canvas_2.height-120 + platform_2,
     x_spd: 0, //horizontal velocity
     y_spd : 0, //vertical velocity
-    limiter : 10, //speed limiter
     friction: 0.8, //friction to stop moving on ground
     gravity : 0.5, //gravity in air --> higher value jump lower
     idleToLeft: true,
     jumping: false,
-    runToLeft: false,
+    running: false,
     health: 100
 }
 var obstacles_2 = [];
@@ -173,7 +179,7 @@ function update_2(character,jumpStore,leftStore,rightStore){
         if(character == p1_avatar){
             character.attacking = true;
         }
-    }   
+    }
 
     //to prevent sticking to the walls
     character.x_spd *= character.friction;
@@ -421,7 +427,7 @@ function render_2() {
                 p2_leftRun.draw(p2_avatar.x_pos-5,p2_avatar.y_pos-3);
             }
         }
-        else{
+        else if(p2_avatar.idleToLeft == false){
             if(p2_avatar.running == false){ 
                 p2_idle.update(); 
                 p2_idle.draw(p2_avatar.x_pos-15,p2_avatar.y_pos-3);
@@ -460,8 +466,6 @@ function render_2() {
 
     //obstacles_2
     for(var i=0; i<obstacles_2.length;i++){
-        //ctx.fillStyle = "black";
-        //ctx.fillRect(obstacles_2[i].x_pos,obstacles_2[i].y_pos,obstacles_2[i].width,obstacles_2[i].height);
         ctx_2.drawImage(dirt,obstacles_2[i].x_pos,obstacles_2[i].y_pos,obstacles_2[i].width,obstacles_2[i].height);
     } 
 }
@@ -492,3 +496,4 @@ doublePlay.addEventListener("click",function(){
     gameStart_2();
 });
 
+// };
